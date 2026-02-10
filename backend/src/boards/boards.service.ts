@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
 export class BoardsService {
@@ -8,4 +9,13 @@ export class BoardsService {
     findAll() {
         return this.prisma.board.findMany();
     }
+
+    create(dto: CreateBoardDto) {
+        return this.prisma.board.create({
+            data: {
+            name: dto.title,
+            },
+        });
+    }
+
 }
