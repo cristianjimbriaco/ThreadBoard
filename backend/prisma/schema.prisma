@@ -12,9 +12,90 @@ datasource db {
   provider = "postgresql"
 }
 
-model Board {
-  id        Int      @id @default(autoincrement())
-  title      String
-  createdAt DateTime @default(now())
+enum NodeType {
+  SCENE
+  THEORY
 }
 
+model Board {
+  id          String       @id @default(uuid())
+  title       String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  nodes       Node[]
+  connections Connection[]
+}
+
+model Node {
+  id        String   @id @default(uuid())
+  boardId   String
+  type      NodeType
+  positionX Float
+  positionY Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  board   Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  scene   Scene?
+  theory  Theory?
+
+  outgoingConnections Connection[] @relation("SourceNode")
+  incomingConnections Connection[] @relation("TargetNode")
+}
+
+model Scene {
+  nodeId      String   @id
+  title       String
+  imageUrl    String?
+  season      Int?
+  episode     Int?
+  minute      Int?
+  description String?
+  location    String?
+  note        String?
+
+  node        Node @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  characters  SceneCharacter[]
+}
+
+model Theory {
+  nodeId      String   @id
+  title       String
+  description String?
+  imageUrl    String?
+
+  node        Node @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+}
+
+model Character {
+  id    String @id @default(uuid())
+  name  String @unique
+
+  scenes SceneCharacter[]
+}
+
+model SceneCharacter {
+  sceneNodeId String
+  characterId String
+
+  scene     Scene     @relation(fields: [sceneNodeId], references: [nodeId], onDelete: Cascade)
+  character Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@id([sceneNodeId, characterId])
+}
+
+model Connection {
+  id           String   @id @default(uuid())
+  boardId      String
+  sourceNodeId String
+  targetNodeId String
+  description  String?
+  createdAt    DateTime @default(now())
+
+  board      Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  sourceNode Node  @relation("SourceNode", fields: [sourceNodeId], references: [id], onDelete: Cascade)
+  targetNode Node  @relation("TargetNode", fields: [targetNodeId], references: [id], onDelete: Cascade)
+}

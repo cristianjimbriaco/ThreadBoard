@@ -12,9 +12,7 @@ export class BoardsService {
 
     create(dto: CreateBoardDto) {
         return this.prisma.board.create({
-            data: {
-            name: dto.title,
-            },
+            data: dto,
         });
     }
 
