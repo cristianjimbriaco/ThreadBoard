@@ -28,6 +28,7 @@ Representa un espacio de trabajo donde el usuario organiza escenas y teorías
 - title
 - description
 - createdAt
+- updatedAt
 
 **Relaciones**
 - Un Board tiene muchas Scenes
@@ -35,12 +36,23 @@ Representa un espacio de trabajo donde el usuario organiza escenas y teorías
 
 ---
 
+### Node (Nodo)
+Es la entidad padre de Scene y Theory
+
+**Atributos**
+- id 
+- boardId
+- type (SCENE | THEORY)
+- positionX
+- positionY
+- createdAt
+- updatedAt
+
 ### Scene (Escena)
 Representa un momento relevante de una obra audiovisual
 
 **Atributos**
-- id
-- boardId
+- nodeId (PK/FK)
 - title
 - imageUrl
 - season
@@ -49,7 +61,6 @@ Representa un momento relevante de una obra audiovisual
 - description
 - location
 - note
-- createdAt
 
 **Relaciones**
 - Una Scene pertenece a un Board
@@ -70,8 +81,11 @@ Representa un personaje de la obra
 ---
 
 ### SceneCharacter
-Entidad intermedia para modelar la relación muchos-a-muchos
-entre Scene y Character.
+Entidad intermedia para modelar la relación muchos-a-muchos entre Scene y Character.
+
+**Atributos**
+- sceneNodeId
+- characterId
 
 ---
 
@@ -79,11 +93,22 @@ entre Scene y Character.
 Representa una hipótesis o interpretación narrativa del usuario.
 
 **Atributos**
-- id
-- boardId
+- NodeId (PK/FK)
 - title
 - description
 - imageUrl
+
+---
+
+### Connection (Coneccion)
+Representa la coneccion entre dos nodos (teorias o escenas) que sirve para guardar las caracteristicas de la coneccion
+
+**Atributos**
+- id
+- boardId
+- sourceNodeId
+- targetNodeId
+- description
 - createdAt
 
 ---

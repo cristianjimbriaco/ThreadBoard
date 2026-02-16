@@ -17,6 +17,13 @@ enum NodeType {
   THEORY
 }
 
+enum ConnectionType {
+  CAUSES
+  LEADS_TO
+  PARALLEL
+  CONTRADICTS
+}
+
 model Board {
   id          String       @id @default(uuid())
   title       String
@@ -92,10 +99,14 @@ model Connection {
   boardId      String
   sourceNodeId String
   targetNodeId String
-  description  String?
+  type         ConnectionType
   createdAt    DateTime @default(now())
 
-  board      Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  sourceNode Node  @relation("SourceNode", fields: [sourceNodeId], references: [id], onDelete: Cascade)
-  targetNode Node  @relation("TargetNode", fields: [targetNodeId], references: [id], onDelete: Cascade)
+  board        Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  sourceNode   Node  @relation("SourceNode", fields: [sourceNodeId], references: [id], onDelete: Cascade)
+  targetNode   Node  @relation("TargetNode", fields: [targetNodeId], references: [id], onDelete: Cascade)
+
+  @@index([boardId])
+  @@index([sourceNodeId])
+  @@index([targetNodeId])
 }
