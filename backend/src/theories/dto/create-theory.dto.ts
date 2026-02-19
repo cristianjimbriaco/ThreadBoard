@@ -15,3 +15,17 @@ export class CreateTheoryDto {
     @IsString()
     description?: string;
 }
+
+export class UpdateTheoryDto {
+    @IsOptional()
+    @IsString()
+    title?:string
+
+    @IsOptional()
+    @IsString()
+    imageUrl?: string;
+
+    @IsOptional()
+    @IsString()
+    description?: string;
+}

@@ -18,3 +18,12 @@ export class CreateNodeDto {
   @IsNumber()
   positionY: number;
 }
+
+export class UpdateNodePositionDto {
+  
+  @IsNumber()
+  positionX: number;
+
+  @IsNumber()
+  positionY: number;
+}

@@ -34,11 +34,30 @@ export class ConnectionsService {
         });
     }
 
+    async findAll() {
+        return this.prisma.connection.findMany();
+    }
+
     async findByBoard(boardId: string) {
         return this.prisma.connection.findMany({
             where: { boardId },
         });
     }
 
+    async remove(id: string) {
+        const connection = await this.prisma.connection.findUnique({
+            where: { id },
+        });
+
+        if (!connection) {
+            throw new NotFoundException(`Connection with id ${id} not found`);
+        }
+
+        await this.prisma.connection.delete({
+            where: { id },
+        });
+
+        return { message: 'Connection deleted successfully' };
+    }
 
 }

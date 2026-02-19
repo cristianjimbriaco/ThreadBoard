@@ -35,3 +35,33 @@ export class CreateSceneDto {
     @IsString()
     note?: string;
 }
+
+export class UpdateSceneDto {
+    @IsOptional()
+    @IsString()
+    title?: string;
+
+    @IsOptional()
+    @IsNumber()
+    season?: number;
+
+    @IsOptional()
+    @IsNumber()
+    episode?: number;
+
+    @IsOptional()
+    @IsNumber()
+    minute?: number;
+
+    @IsOptional()
+    @IsString()
+    description?: string;
+
+    @IsOptional()
+    @IsString()
+    location?: string;
+
+    @IsOptional()
+    @IsString()
+    note?: string;
+}

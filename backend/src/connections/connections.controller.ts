@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ConnectionsService } from './connections.service';
 import { CreateConnectionDto } from './dto/create-connection.dto';
 
@@ -11,8 +11,19 @@ export class ConnectionsController {
     return this.connectionsService.create(dto);
   }
 
+  @Get()
+  findAll() {
+    return this.connectionsService.findAll();
+  }
+
   @Get('board/:boardId')
   findByBoard(@Param('boardId') boardId: string) {
     return this.connectionsService.findByBoard(boardId);
   }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.connectionsService.remove(id);
+  }
+
 }

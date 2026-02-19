@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateSceneDto } from './dto/create-scene.dto';
+import { CreateSceneDto, UpdateSceneDto } from './dto/create-scene.dto';
 
 @Injectable()
 export class ScenesService {
@@ -22,6 +22,14 @@ export class ScenesService {
         });
     }
 
+    async findAll() {
+        return this.prisma.scene.findMany({
+            include: {
+                node: true
+            }
+        });
+    }
+
     async findByNode(nodeId: string) {
         return this.prisma.scene.findUnique({
             where: { nodeId },
@@ -30,4 +38,20 @@ export class ScenesService {
             },
         });
     }
+
+    async update(nodeId: string, updateSceneDto: UpdateSceneDto) {
+        const scene = await this.prisma.scene.findUnique({
+            where: { nodeId },
+        });
+
+        if (!scene) {
+            throw new NotFoundException(`Scene with Id ${nodeId} not found`);
+        }
+
+        return this.prisma.scene.update({
+            where: { nodeId },
+            data: updateSceneDto,
+        });
+    }
+
 }
