@@ -1,12 +1,40 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTheoryDto, UpdateTheoryDto } from './dto/create-theory.dto';
 
 @Injectable()
 export class TheoriesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateTheoryDto) {
+    const node = await this.prisma.node.findUnique({
+      where: { id: dto.nodeId },
+      include: {
+        theory: true,
+      },
+    });
+
+    if (!node) {
+      throw new NotFoundException(`Node with id ${dto.nodeId} not found`);
+    }
+
+    if (node.type !== 'THEORY') {
+      throw new BadRequestException(
+        `Theory data can only be assigned to a THEORY node`,
+      );
+    }
+
+    if (node.theory) {
+      throw new ConflictException(
+        `Node with id ${dto.nodeId} already has theory data`,
+      );
+    }
+
     return this.prisma.theory.create({
       data: {
         nodeId: dto.nodeId,
@@ -32,7 +60,7 @@ export class TheoriesService {
     return theory;
   }
 
-  async findAll() {
+  findAll() {
     return this.prisma.theory.findMany({
       include: {
         node: true,
