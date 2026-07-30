@@ -4,9 +4,18 @@ import { CreateNodeDto, UpdateNodePositionDto } from './dto/create-node.dto';
 
 @Injectable()
 export class NodesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(dto: CreateNodeDto) {
+  async create(dto: CreateNodeDto) {
+    const board = await this.prisma.board.findUnique({
+      where: { id: dto.boardId },
+      select: { id: true },
+    });
+
+    if (!board) {
+      throw new NotFoundException(`Board with id ${dto.boardId} not found`);
+    }
+
     return this.prisma.node.create({
       data: dto,
     });
@@ -26,9 +35,11 @@ export class NodesService {
     const node = await this.prisma.node.findUnique({
       where: { id },
     });
+
     if (!node) {
       throw new NotFoundException(`Node with id ${id} not found`);
     }
+
     return this.prisma.node.update({
       where: { id },
       data: {
