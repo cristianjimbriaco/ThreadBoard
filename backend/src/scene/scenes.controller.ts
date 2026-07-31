@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Patch,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { ScenesService } from './scenes.service';
 import { CreateSceneDto, UpdateSceneDto } from './dto/create-scene.dto';
 
@@ -17,16 +25,15 @@ export class ScenesController {
   }
 
   @Get(':nodeId')
-  findByNode(@Param('nodeId') nodeId: string) {
+  findByNode(@Param('nodeId', new ParseUUIDPipe()) nodeId: string) {
     return this.scenesService.findByNode(nodeId);
   }
 
-  @Patch(':id')
-  async update(
-    @Param('id') id: string,
+  @Patch(':nodeId')
+  update(
+    @Param('nodeId', new ParseUUIDPipe()) nodeId: string,
     @Body() updateSceneDto: UpdateSceneDto,
   ) {
-    return this.scenesService.update(id, updateSceneDto);
+    return this.scenesService.update(nodeId, updateSceneDto);
   }
-
 }

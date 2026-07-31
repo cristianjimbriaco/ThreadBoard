@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { ConnectionsService } from './connections.service';
 import { CreateConnectionDto } from './dto/create-connection.dto';
 
@@ -17,13 +25,12 @@ export class ConnectionsController {
   }
 
   @Get('board/:boardId')
-  findByBoard(@Param('boardId') boardId: string) {
+  findByBoard(@Param('boardId', new ParseUUIDPipe()) boardId: string) {
     return this.connectionsService.findByBoard(boardId);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.connectionsService.remove(id);
   }
-
 }
