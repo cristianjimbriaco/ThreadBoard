@@ -1,11 +1,5 @@
 import { IsUUID, IsEnum } from 'class-validator';
-
-export enum ConnectionType {
-  CAUSES = 'CAUSES',
-  LEADS_TO = 'LEADS_TO',
-  PARALLEL = 'PARALLEL',
-  CONTRADICTS = 'CONTRADICTS'
-}
+import { ConnectionType } from '@prisma/client';
 
 export class CreateConnectionDto {
   @IsUUID()
