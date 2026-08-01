@@ -3,14 +3,14 @@ import { ConnectionType } from '@prisma/client';
 
 export class CreateConnectionDto {
   @IsUUID()
-  boardId: string;
+  boardId!: string;
 
   @IsUUID()
-  sourceNodeId: string;
+  sourceNodeId!: string;
 
   @IsUUID()
-  targetNodeId: string;
+  targetNodeId!: string;
 
   @IsEnum(ConnectionType)
-  type: ConnectionType;
+  type!: ConnectionType;
 }
