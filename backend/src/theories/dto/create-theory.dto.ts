@@ -2,13 +2,13 @@ import { IsString, IsOptional, IsUUID, Matches } from 'class-validator';
 
 export class CreateTheoryDto {
   @IsUUID()
-  nodeId: string;
+  nodeId!: string;
 
   @IsString()
   @Matches(/\S/, {
     message: 'Title must contain at least one non-whitespace character',
   })
-  title: string;
+  title!: string;
 
   @IsOptional()
   @IsString()

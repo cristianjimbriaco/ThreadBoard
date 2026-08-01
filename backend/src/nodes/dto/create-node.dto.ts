@@ -3,22 +3,22 @@ import { NodeType } from '@prisma/client';
 
 export class CreateNodeDto {
   @IsUUID()
-  boardId: string;
+  boardId!: string;
 
   @IsEnum(NodeType)
-  type: NodeType;
+  type!: NodeType;
 
   @IsNumber()
-  positionX: number;
+  positionX!: number;
 
   @IsNumber()
-  positionY: number;
+  positionY!: number;
 }
 
 export class UpdateNodePositionDto {
   @IsNumber()
-  positionX: number;
+  positionX!: number;
 
   @IsNumber()
-  positionY: number;
+  positionY!: number;
 }
