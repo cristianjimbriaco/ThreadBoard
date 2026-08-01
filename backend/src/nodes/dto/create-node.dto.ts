@@ -1,9 +1,5 @@
 import { IsEnum, IsNumber, IsUUID } from 'class-validator';
-
-export enum NodeType {
-  SCENE = 'SCENE',
-  THEORY = 'THEORY',
-}
+import { NodeType } from '@prisma/client';
 
 export class CreateNodeDto {
   @IsUUID()
@@ -20,7 +16,6 @@ export class CreateNodeDto {
 }
 
 export class UpdateNodePositionDto {
-  
   @IsNumber()
   positionX: number;
 
