@@ -1,15 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SceneService } from './scenes.service';
+import { ScenesService } from './scenes.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { prismaServiceMock } from '../../test/mocks/prisma-service.mock';
 
-describe('SceneService', () => {
-  let service: SceneService;
+describe('ScenesService', () => {
+  let service: ScenesService;
 
   beforeEach(async () => {
+    jest.clearAllMocks();
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SceneService],
+      providers: [
+        ScenesService,
+        {
+          provide: PrismaService,
+          useValue: prismaServiceMock,
+        },
+      ],
     }).compile();
 
-    service = module.get<SceneService>(SceneService);
+    service = module.get<ScenesService>(ScenesService);
   });
 
   it('should be defined', () => {

@@ -1,15 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SceneController } from './scenes.controller';
+import { ScenesController } from './scenes.controller';
+import { ScenesService } from './scenes.service';
 
-describe('SceneController', () => {
-  let controller: SceneController;
+describe('ScenesController', () => {
+  let controller: ScenesController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [SceneController],
+      controllers: [ScenesController],
+      providers: [
+        {
+          provide: ScenesService,
+          useValue: {},
+        },
+      ],
     }).compile();
 
-    controller = module.get<SceneController>(SceneController);
+    controller = module.get<ScenesController>(ScenesController);
   });
 
   it('should be defined', () => {

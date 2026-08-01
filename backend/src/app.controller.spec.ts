@@ -1,14 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PrismaService } from './prisma/prisma.service';
+import { prismaServiceMock } from '../test/mocks/prisma-service.mock';
 
 describe('AppController', () => {
   let appController: AppController;
 
   beforeEach(async () => {
+    jest.clearAllMocks();
+
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        AppService,
+        {
+          provide: PrismaService,
+          useValue: prismaServiceMock,
+        },
+      ],
     }).compile();
 
     appController = app.get<AppController>(AppController);
