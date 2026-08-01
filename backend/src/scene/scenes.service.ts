@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSceneDto, UpdateSceneDto } from './dto/create-scene.dto';
-import { NodeType } from 'src/nodes/dto/create-node.dto';
+import { NodeType } from '@prisma/client';
 
 @Injectable()
 export class ScenesService {
