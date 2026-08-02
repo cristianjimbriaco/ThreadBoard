@@ -1,98 +1,233 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# ThreadBoard Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST del proyecto ThreadBoard, construida con NestJS, Prisma y PostgreSQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologías
 
-## Description
+- Node.js
+- NestJS
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- Jest
+- Supertest
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Requisitos
 
-## Project setup
+Antes de ejecutar el backend debes tener instalado:
 
-```bash
-$ npm install
+- Node.js en la versión indicada en el archivo `.nvmrc`.
+- npm.
+- PostgreSQL.
+
+## Instalación
+
+Desde la carpeta `backend`:
+
+```powershell
+npm install
 ```
 
-## Compile and run the project
+## Variables de entorno
 
-```bash
-# development
-$ npm run start
+Copia el archivo de ejemplo:
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```powershell
+Copy-Item .env.example .env
 ```
 
-## Run tests
+Configura las siguientes variables dentro de `.env`:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```env
+DATABASE_URL="postgresql://USUARIO:CONTRASEÑA@localhost:5432/threadboard"
+PORT=3000
+FRONTEND_URL="http://localhost:5173"
 ```
 
-## Deployment
+El archivo `.env` contiene información local y no debe subirse al repositorio.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Configuración de Prisma
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Genera el cliente de Prisma:
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```powershell
+npx prisma generate
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Aplica las migraciones de la base de datos:
 
-## Resources
+```powershell
+npx prisma migrate dev
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+Para abrir Prisma Studio:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```powershell
+npx prisma studio
+```
 
-## Support
+## Ejecutar en desarrollo
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```powershell
+npm run start:dev
+```
 
-## Stay in touch
+La API estará disponible normalmente en:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```text
+http://localhost:3000
+```
 
-## License
+## Compilar el backend
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```powershell
+npm run build
+```
+
+La compilación se genera dentro de:
+
+```text
+backend/dist
+```
+
+## Ejecutar la compilación de producción
+
+```powershell
+npm run start:prod
+```
+
+Antes de ejecutar este comando debe existir una compilación generada mediante:
+
+```powershell
+npm run build
+```
+
+## Pruebas unitarias
+
+```powershell
+npm test
+```
+
+Para ejecutar las pruebas una después de otra:
+
+```powershell
+npx jest --runInBand
+```
+
+Las pruebas unitarias utilizan mocks de Prisma y no necesitan conectarse a PostgreSQL.
+
+## Pruebas end-to-end
+
+```powershell
+npm run test:e2e -- --runInBand
+```
+
+Las pruebas end-to-end levantan una aplicación NestJS real y utilizan la base de datos PostgreSQL configurada en `.env`.
+
+PostgreSQL debe estar iniciado antes de ejecutarlas.
+
+## Verificación completa
+
+```powershell
+npm run build
+npx jest --runInBand
+npm run test:e2e -- --runInBand
+```
+
+Todos los comandos deben completarse sin errores antes de integrar cambios en una rama principal del proyecto.
+
+## Módulos actuales
+
+El backend está organizado en los siguientes módulos:
+
+- Boards
+- Nodes
+- Scenes
+- Theories
+- Connections
+- Prisma
+
+## Entidades principales
+
+### Board
+
+Representa un tablero de trabajo.
+
+### Node
+
+Representa un elemento posicionado dentro del tablero.
+
+Los tipos permitidos son:
+
+- `SCENE`
+- `THEORY`
+
+### Scene
+
+Representa una escena asociada a un nodo de tipo `SCENE`.
+
+### Theory
+
+Representa una teoría asociada a un nodo de tipo `THEORY`.
+
+### Connection
+
+Representa una relación dirigida entre dos nodos.
+
+Los tipos permitidos son:
+
+- `CAUSES`
+- `LEADS_TO`
+- `PARALLEL`
+- `CONTRADICTS`
+
+## Validación
+
+El backend utiliza un `ValidationPipe` global con:
+
+- Validación de DTO.
+- Rechazo de propiedades no reconocidas.
+- Transformación de datos.
+- Validación de parámetros UUID.
+
+## Respuestas de error
+
+Los códigos principales utilizados son:
+
+- `400 Bad Request`: datos o reglas de negocio inválidas.
+- `404 Not Found`: recurso inexistente.
+- `409 Conflict`: recurso duplicado o estado incompatible.
+
+## Colección de Postman
+
+La colección verificada del Sprint 1 se encuentra en:
+
+```text
+docs/postman/ThreadBoard-Sprint1.postman_collection.json
+```
+
+La colección incluye pruebas para:
+
+- Boards.
+- Nodes.
+- Scenes.
+- Theories.
+- Connections.
+- Vistas de grafo.
+- Validaciones.
+- Limpieza de datos de prueba.
+
+## Estado del Sprint 1
+
+Durante el Sprint 1 se completaron:
+
+- Configuración de NestJS y Prisma.
+- Conexión con PostgreSQL.
+- Endpoints principales.
+- Validación de solicitudes.
+- Reglas de dominio.
+- Manejo de errores HTTP.
+- Pruebas unitarias.
+- Pruebas end-to-end.
+- Compilación de producción.
+- Colección de Postman verificada.
