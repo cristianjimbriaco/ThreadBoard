@@ -1,35 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { BoardCanvas } from './features/board/BoardCanvas';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="threadboard-shell">
+      <aside className="sidebar">
+        <div className="sidebar__brand">
+          <span className="sidebar__logo">TB</span>
+
+          <div>
+            <strong>ThreadBoard</strong>
+            <span>Narrative workspace</span>
+          </div>
+        </div>
+
+        <section className="sidebar__section">
+          <span className="sidebar__eyebrow">Current board</span>
+
+          <h1>Investigation Board</h1>
+
+          <p>Explore the relationship between scenes and theories.</p>
+        </section>
+
+        <section className="sidebar__section">
+          <span className="sidebar__eyebrow">Elements</span>
+
+          <div className="element-legend">
+            <div className="element-legend__item">
+              <span className="element-legend__mark element-legend__mark--scene" />
+
+              <div>
+                <strong>Scene</strong>
+                <span>Evidence from the source material</span>
+              </div>
+            </div>
+
+            <div className="element-legend__item">
+              <span className="element-legend__mark element-legend__mark--theory" />
+
+              <div>
+                <strong>Theory</strong>
+                <span>An interpretation or hypothesis</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="sidebar__sprint">
+          <span>Sprint 1 prototype</span>
+          <strong>Interactive canvas</strong>
+          <p>Nodes are temporary until backend persistence is connected.</p>
+        </section>
+      </aside>
+
+      <main className="workspace">
+        <header className="workspace__header">
+          <div>
+            <span className="workspace__eyebrow">Workspace</span>
+            <h2>Investigation Board</h2>
+          </div>
+
+          <span className="workspace__status">Local prototype</span>
+        </header>
+
+        <section
+          className="workspace__canvas"
+          aria-label="Interactive ThreadBoard canvas"
+        >
+          <BoardCanvas />
+        </section>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
