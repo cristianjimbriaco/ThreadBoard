@@ -27,6 +27,10 @@ describe('ThreadBoard API (e2e)', () => {
   });
 
   afterAll(async () => {
+    if (!app) {
+      return;
+    }
+
     if (boardId) {
       await request(app.getHttpServer()).delete(`/boards/${boardId}`);
     }
