@@ -1,140 +1,212 @@
-# 📍 Roadmap de Desarrollo - Threadboard
+# Roadmap de desarrollo — ThreadBoard
 
-Este documento detalla el plan de ejecución y los objetivos por fases para el desarrollo de **Threadboard**.
+Este documento registra el alcance previsto y el estado de cada sprint de ThreadBoard.
 
-# 📍 Roadmap de Desarrollo - Threadboard
+## Stack actual
 
-## 🛠️ Stack Tecnológico
-![Next.js](https://img.shields.io/badge/Next.js-000?style=flat-square&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white)
+### Backend
 
----
+- NestJS
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- Jest y Supertest
 
-## 🏗️ Sprint 0 — Preparación
-**Duración:** 2-3 días  
-**Objetivo:** Dejar todo listo para desarrollar sin fricción.
+### Frontend
 
-### Tareas
-* **Repositorio:** Creación del repo oficial.
-* **Stack final:**
-    * Next.js + React + TS
-    * Node + Express
-    * PostgreSQL
-* **Setup básico:**
-    * Configuración de ESLint / Prettier.
-    * Gestión de variables de entorno (`.env`).
-* **Diseño:** Wireframes finales a mano.
+- React
+- TypeScript
+- Vite
+- React Flow
 
-**Entregables:**
-- [x] Repo listo.
-- [x] Decisiones técnicas cerradas.
+### Herramientas
+
+- Git y GitHub
+- Postman
+- ESLint
+- Prettier
 
 ---
 
-## 🦴 Sprint 1 — Base del producto (Esqueleto funcional)
-**Duración:** 1–2 semanas  
-**Objetivo:** Ver un tablero en pantalla que se pueda usar, aunque sea feo.
+## Sprint 0 — Preparación
 
-### Tareas
-* **Frontend:**
-    * Layout base (canvas + sidebar).
-    * Renderizar nodos mockeados.
-    * Drag & drop de nodos.
-    * Zoom / pan básico.
-* **Backend:**
-    * Crear entidades: `Board`, `Node`, `Scene`, `Theory`, `Connection`.
-    * Endpoints CRUD básicos.
-    * Conexión a base de datos.
+**Estado:** Completado
 
-**Entregables:**
+**Objetivo:** Preparar el repositorio y el entorno técnico.
+
+### Trabajo realizado
+
+- Creación del repositorio.
+- Estructura monorepo.
+- Backend y frontend iniciales.
+- Configuración de Git.
+- Normalización de finales de línea.
+- EditorConfig.
+- `.gitignore`.
+- Versión de Node.js.
+- Variables de entorno de ejemplo.
+- Configuración inicial de PostgreSQL y Prisma.
+
+### Entregables
+
+- Repositorio funcional.
+- Stack técnico definido.
+- Entornos backend y frontend instalables.
+
+---
+
+## Sprint 1 — Base del producto
+
+**Estado:** Completado
+
+**Objetivo:** Construir un esqueleto funcional con persistencia y un canvas interactivo.
+
+### Backend completado
+
+- Entidades Board, Node, Scene, Theory y Connection.
+- Migraciones y cliente de Prisma.
+- Conexión a PostgreSQL.
+- Endpoints principales.
+- Validación global de DTO.
+- Validación de UUID.
+- Reglas de creación y consistencia de dominio.
+- Manejo de registros inexistentes.
+- Prevención de conexiones inválidas o duplicadas.
+- Configuración de CORS y variables de entorno.
+- Compilación de producción.
+- Cierre controlado de Prisma y PostgreSQL.
+- Pruebas unitarias.
+- Pruebas end-to-end.
+- Colección de Postman verificada.
+
+### Frontend completado
+
+- Layout principal.
+- Sidebar.
+- Canvas mediante React Flow.
+- Nodos mockeados de escena y teoría.
+- Arrastre de nodos.
+- Zoom.
+- Pan.
+- Controles de navegación.
+- Selección visual.
+- Configuración de ESLint y Prettier.
+- Compilación de producción.
+
+### Entregables
+
 - Tablero visible.
 - Nodos movibles.
-- Datos persistidos.
+- Backend con datos persistidos.
+- API verificable mediante Postman.
+- Base automatizada de pruebas.
+
+### Limitaciones conocidas
+
+- Los nodos del frontend todavía son temporales.
+- El frontend todavía no consume la API.
+- Las posiciones movidas en el canvas no se guardan.
+- Las conexiones todavía no se dibujan en el frontend.
+- No existe autenticación.
 
 ---
 
-## 📝 Sprint 2 — Escenas y teorías reales
-**Duración:** 1–2 semanas  
-**Objetivo:** Que el usuario pueda crear contenido propio.
+## Sprint 2 — Escenas y teorías reales
 
-### Tareas
-* Crear escena (formulario simple).
-* Crear teoría.
-* Guardar posiciones en el canvas.
-* Ver detalle de escena / teoría.
-* Eliminar nodos.
+**Estado:** Pendiente
 
-**Entregables:**
-- Crear y editar nodos reales.
-- Canvas refleja datos reales de la DB.
+**Objetivo:** Sustituir los nodos mockeados por contenido real administrado por el usuario.
 
----
+### Trabajo previsto
 
-## 🟢 Sprint 3 — Conexiones (El corazón)
-**Duración:** 1 semana  
-**Objetivo:** Alcanzar el *aha moment* del producto.
+- Crear capa de acceso a la API en el frontend.
+- Cargar tableros y nodos desde PostgreSQL.
+- Crear escenas.
+- Crear teorías.
+- Editar escenas y teorías.
+- Mostrar detalles.
+- Guardar posiciones al finalizar el arrastre.
+- Eliminar nodos desde la interfaz.
+- Manejar estados de carga y error.
+- Añadir pruebas para los nuevos flujos.
 
-### Tareas
-* Crear conexión mediante drag.
-* Guardar conexión en DB.
-* Renderizar líneas de unión.
-* Editar descripción de conexión.
-* Eliminar conexión.
+### Entregables
 
-**Entregables:**
-- Escenas y teorías conectadas.
-- El producto empieza a “tener sentido”.
+- Canvas alimentado por datos reales.
+- Creación y edición desde el frontend.
+- Posiciones persistidas.
 
 ---
 
-## 🟢 Sprint 4 — Onboarding + primera experiencia
-**Duración:** 1 semana  
-**Objetivo:** Que un usuario nuevo entienda y se enganche.
+## Sprint 3 — Conexiones visuales
 
-### Tareas
-* Generación de tablero de ejemplo automático.
-* Implementación de tooltips contextuales.
-* Lógica para eliminar ejemplo al crear nodos propios.
-* Primera UX pulida (usable y funcional).
+**Estado:** Pendiente
 
-**Entregables:**
-- [x] Onboarding sin fricción.
-- [x] Primer “wow” del usuario.
+**Objetivo:** Permitir que el usuario relacione visualmente escenas y teorías.
 
----
+### Trabajo previsto
 
-## 🟢 Sprint 5 — Estabilidad y polish
-**Duración:** 1 semana  
-**Objetivo:** Que la aplicación no se sienta frágil.
+- Crear conexiones mediante interacción en el canvas.
+- Persistir conexiones.
+- Renderizar líneas entre nodos.
+- Diferenciar visualmente los tipos de conexión.
+- Eliminar conexiones.
+- Manejar conexiones inválidas.
 
-### Tareas
-* Validaciones de datos.
-* Manejo de errores amigable.
-* Sistema de "Undo" (deshacer) básico.
-* Mejor feedback visual.
-* Optimización de performance del canvas.
+### Entregables
 
-**Entregables:**
-- App estable.
-- Lista para usuarios reales.
+- Nodos conectados visualmente.
+- Relaciones persistidas en PostgreSQL.
 
 ---
 
-## 🚀 Sprint 6 — Deploy + usuarios reales
-**Duración:** 3–5 días  
-**Objetivo:** Que la app exista en el mundo.
+## Sprint 4 — Primera experiencia
 
-### Tareas
-* Deploy del Frontend.
-* Deploy del Backend.
-* Configuración de DB en la nube.
-* Configuración de dominio.
-* Recolección de feedback de primeros usuarios.
+**Estado:** Pendiente
 
-**Entregables:**
-- Threadboard online.
-- Usuarios reales interactuando con la plataforma.
+**Objetivo:** Facilitar que un usuario nuevo comprenda la aplicación.
+
+### Trabajo previsto
+
+- Tablero de ejemplo.
+- Mensajes y ayudas contextuales.
+- Estados vacíos.
+- Mejoras iniciales de experiencia de usuario.
+- Flujo guiado para crear el primer contenido.
+
+---
+
+## Sprint 5 — Estabilidad
+
+**Estado:** Pendiente
+
+**Objetivo:** Preparar la aplicación para pruebas con usuarios.
+
+### Trabajo previsto
+
+- Manejo de errores amigable.
+- Feedback visual.
+- Acciones de deshacer cuando sean necesarias.
+- Optimización del canvas.
+- Ampliación de pruebas.
+- Revisión de accesibilidad.
+- Revisión de seguridad.
+- Revisión de dependencias.
+
+---
+
+## Sprint 6 — Despliegue
+
+**Estado:** Pendiente
+
+**Objetivo:** Publicar una versión accesible de ThreadBoard.
+
+### Trabajo previsto
+
+- Base de datos en la nube.
+- Despliegue del backend.
+- Despliegue del frontend.
+- Configuración de dominio.
+- Variables de entorno de producción.
+- Registro y análisis de errores.
+- Recolección de feedback.

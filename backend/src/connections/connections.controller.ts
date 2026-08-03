@@ -1,0 +1,36 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
+import { ConnectionsService } from './connections.service';
+import { CreateConnectionDto } from './dto/create-connection.dto';
+
+@Controller('connections')
+export class ConnectionsController {
+  constructor(private readonly connectionsService: ConnectionsService) {}
+
+  @Post()
+  create(@Body() dto: CreateConnectionDto) {
+    return this.connectionsService.create(dto);
+  }
+
+  @Get()
+  findAll() {
+    return this.connectionsService.findAll();
+  }
+
+  @Get('board/:boardId')
+  findByBoard(@Param('boardId', new ParseUUIDPipe()) boardId: string) {
+    return this.connectionsService.findByBoard(boardId);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.connectionsService.remove(id);
+  }
+}
