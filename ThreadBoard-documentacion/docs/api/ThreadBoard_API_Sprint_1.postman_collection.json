@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "ThreadBoard API - Sprint 1 (Final)",
+    "_postman_id": "threadboard-sprint1-final-collection",
+    "description": "Complete backend test collection for Sprint 1 including Boards, Nodes, Scenes, Theories, Connections, Graph and Graph View endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "boardId",
+      "value": ""
+    },
+    {
+      "key": "nodeId",
+      "value": ""
+    },
+    {
+      "key": "sceneId",
+      "value": ""
+    },
+    {
+      "key": "theoryId",
+      "value": ""
+    },
+    {
+      "key": "connectionId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1️⃣ Boards",
+      "item": [
+        {
+          "name": "Create Board",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/boards",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Investigation Board\",\n  \"description\": \"Sprint 1 testing\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Boards",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/boards"
+          }
+        },
+        {
+          "name": "Get Board By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/boards/{{boardId}}"
+          }
+        },
+        {
+          "name": "Delete Board",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/boards/{{boardId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2️⃣ Nodes",
+      "item": [
+        {
+          "name": "Create Node (Scene Type)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/nodes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"boardId\": \"{{boardId}}\",\n  \"type\": \"SCENE\",\n  \"positionX\": 100,\n  \"positionY\": 150\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Node (Theory Type)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/nodes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"boardId\": \"{{boardId}}\",\n  \"type\": \"THEORY\",\n  \"positionX\": 300,\n  \"positionY\": 200\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Nodes By Board",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/boards/{{boardId}}/nodes"
+          }
+        },
+        {
+          "name": "Update Node Position",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/nodes/{{nodeId}}/position",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"positionX\": 400,\n  \"positionY\": 500\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Node",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/nodes/{{nodeId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3️⃣ Scenes",
+      "item": [
+        {
+          "name": "Create Scene (requires nodeId)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/scenes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nodeId\": \"{{nodeId}}\",\n  \"title\": \"Opening Scene\",\n  \"description\": \"Initial setup\",\n  \"content\": \"Scene content here\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Scenes",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/scenes"
+          }
+        },
+        {
+          "name": "Get Scene By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/scenes/{{sceneId}}"
+          }
+        },
+        {
+          "name": "Patch Scene",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/scenes/{{sceneId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Scene Title\",\n  \"content\": \"Updated scene content\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4️⃣ Theories",
+      "item": [
+        {
+          "name": "Create Theory (requires nodeId)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/theories",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nodeId\": \"{{nodeId}}\",\n  \"title\": \"Suspicion Theory\",\n  \"hypothesis\": \"The suspect was at the scene\",\n  \"analysis\": \"Based on timeline inconsistencies\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Theories",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/theories"
+          }
+        },
+        {
+          "name": "Get Theory By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/theories/{{theoryId}}"
+          }
+        },
+        {
+          "name": "Patch Theory",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/theories/{{theoryId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"analysis\": \"Updated analytical reasoning\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5️⃣ Connections",
+      "item": [
+        {
+          "name": "Create Connection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/connections",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"boardId\": \"{{boardId}}\",\n  \"sourceNodeId\": \"{{sourceNodeId}}\",\n  \"targetNodeId\": \"{{targetNodeId}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Connections",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/connections"
+          }
+        },
+        {
+          "name": "Delete Connection",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/connections/{{connectionId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "6️⃣ Graph Views",
+      "item": [
+        {
+          "name": "Get Graph (Raw Graph Data)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/graph/{{boardId}}"
+          }
+        },
+        {
+          "name": "Get Graph View (React Flow Format)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/graph-view/{{boardId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
