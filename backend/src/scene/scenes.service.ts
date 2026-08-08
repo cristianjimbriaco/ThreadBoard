@@ -7,6 +7,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSceneDto, UpdateSceneDto } from './dto/create-scene.dto';
 import { NodeType } from '@prisma/client';
+import { CreateBoardSceneDto } from './dto/create-board-scene.dto';
 
 @Injectable()
 export class ScenesService {
@@ -84,6 +85,44 @@ export class ScenesService {
     return this.prisma.scene.update({
       where: { nodeId },
       data: updateSceneDto,
+    });
+  }
+
+  async createForBoard(boardId: string, dto: CreateBoardSceneDto) {
+    return this.prisma.$transaction(async (tx) => {
+      const board = await tx.board.findUnique({
+        where: { id: boardId },
+        select: { id: true },
+      });
+      if (!board) {
+        throw new NotFoundException(`Board with id ${boardId} not found`);
+      }
+
+      const node = await tx.node.create({
+        data: {
+          boardId,
+          type: NodeType.SCENE,
+          positionX: dto.positionX,
+          positionY: dto.positionY,
+        },
+      });
+
+      return tx.scene.create({
+        data: {
+          nodeId: node.id,
+          title: dto.title,
+          imageUrl: dto.imageUrl,
+          season: dto.season,
+          episode: dto.episode,
+          minute: dto.minute,
+          description: dto.description,
+          location: dto.location,
+          note: dto.note,
+        },
+        include: {
+          node: true,
+        },
+      });
     });
   }
 }
